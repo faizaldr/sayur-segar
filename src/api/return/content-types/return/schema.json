@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "returns",
+  "info": {
+    "singularName": "return",
+    "pluralName": "returns",
+    "displayName": "Return"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "order": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order",
+      "required": true
+    },
+    "reason": {
+      "type": "text",
+      "required": true
+    },
+    "progress": {
+      "type": "enumeration",
+      "enum": ["process", "approved", "rejected"],
+      "default": "process"
+    },
+    "answer": {
+      "type": "text"
+    },
+    "photos": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "createdAt": {
+      "type": "timestamp"
+    },
+    "updatedAt": {
+      "type": "timestamp"
+    }
+  }
+}

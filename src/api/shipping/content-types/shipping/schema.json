@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shippings",
+  "info": {
+    "singularName": "shipping",
+    "pluralName": "shippings",
+    "displayName": "Shipping",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "createdAt": {
+      "type": "timestamp"
+    },
+    "updatedAt": {
+      "type": "timestamp"
+    },
+    "order": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order",
+      "required": true
+    },
+    "payment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::payment.payment",
+      "required": true
+    },
+    "address": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::address.address",
+      "required": true
+    },
+    "trackingNumber": {
+      "type": "string",
+      "required": false
+    },
+    "progress": {
+      "type": "enumeration",
+      "enum": [
+        "process",
+        "shipped",
+        "delivered"
+      ],
+      "default": "process"
+    },
+    "courier": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

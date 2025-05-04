@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discounts",
+  "info": {
+    "singularName": "discount",
+    "pluralName": "discounts",
+    "displayName": "Discount"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "code": {
+      "type": "string",
+      "required": true
+    },
+    "percentage": {
+      "type": "decimal",
+      "required": true
+    },
+    "validUntil": {
+      "type": "timestamp",
+      "required": true
+    },
+    "createdAt": {
+      "type": "timestamp"
+    },
+    "updatedAt": {
+      "type": "timestamp"
+    }
+  }
+}

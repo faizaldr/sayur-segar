@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "singularName": "payment",
+    "pluralName": "payments",
+    "displayName": "Payment"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "order": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order",
+      "required": true
+    },
+    "method": {
+      "type": "enumeration",
+      "enum": ["cash", "digital"],
+      "required": true
+    },
+    "progress": {
+      "type": "enumeration",
+      "enum": ["process", "completed"],
+      "default": "process"
+    },
+    "createdAt": {
+      "type": "timestamp"
+    },
+    "updatedAt": {
+      "type": "timestamp"
+    }
+  }
+}

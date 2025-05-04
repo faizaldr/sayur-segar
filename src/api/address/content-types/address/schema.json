@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "addresses",
+  "info": {
+    "singularName": "address",
+    "pluralName": "addresses",
+    "displayName": "Addresses"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "regex": "^(\\+62|62|0)8[1-9][0-9]{6,9}$",
+      "required": true
+    },
+    "latitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "longitude": {
+      "type": "decimal",
+      "required": true
+    }
+  }
+}
