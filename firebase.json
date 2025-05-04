@@ -1,5 +1,24 @@
 {
   "storage": {
     "rules": "storage.rules"
+  },
+  "apphosting": {
+    "sites": [
+      {
+        "site": "be-sayursegar"
+      }
+    ]
+  },
+  "hosting": {
+    "appAssociation": "AUTO",
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "be-sayursegar",
+          "region": "asia-east1"
+        }
+      }
+    ]
   }
 }

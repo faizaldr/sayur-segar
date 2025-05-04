@@ -1,45 +1,52 @@
-runConfig:
-  minInstances: 0
-  env:
-    HOST: "0.0.0.0"
-    PORT: "8080"
-    DATABASE_CLIENT: "sqlite"
-    DATABASE_HOST: ""
-    DATABASE_PORT: ""
-    DATABASE_NAME: ""
-    DATABASE_USERNAME: ""
-    DATABASE_PASSWORD: ""
-    DATABASE_SSL: "false"
-    DATABASE_FILENAME: ".tmp/data.db"
-    JWT_SECRET: "R4HaZi4Ill4H1"
-    DEBUG: "strapi:* npm run develop"
-secrets:
-  APP_KEYS: "kEX3fh9VzO50ZvVzJYP9gA==,/GiTdGiLnPhvlhNOlOleJw==,FxWHeYlsS/W9gsdi8ylgCQ==,2l01ok/lzOjt/COybILcEA=="
-  API_TOKEN_SALT: "cR/rallAeNL57sabXR2nYw=="
-  ADMIN_JWT_SECRET: "b87gkK+9htnw01phCAnQwg=="
-  TRANSFER_TOKEN_SALT: "5xJnM1Ai10PipJmKm0PgHg=="
-  
 # Settings for Backend (on Cloud Run).
 # See https://firebase.google.com/docs/app-hosting/configure#cloud-run
-# runConfig:
-#   minInstances: 0
+runConfig:
+  minInstances: 0
   # maxInstances: 1
   # concurrency: 80
   # cpu: 1
   # memoryMiB: 512
 
-# Environment variables and secrets.
-# env:
-  # Configure environment variables.
-  # See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
-  # - variable: MESSAGE
-  #   value: Hello world!
-  #   availability:
-  #     - BUILD
-  #     - RUNTIME
+  # Environment variables and secrets.
+  env:
+    # Server
+    - variable: HOST
+      value: 0.0.0.0
+    - variable: PORT
+      value: 8080
 
-  # Grant access to secrets in Cloud Secret Manager.
-  # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
-  # - variable: MY_SECRET
-  #   secret: mySecretRef
+    # Secrets
+    - variable: APP_KEYS
+      value: kEX3fh9VzO50ZvVzJYP9gA==,/GiTdGiLnPhvlhNOlOleJw==,FxWHeYlsS/W9gsdi8ylgCQ==,2l01ok/lzOjt/COybILcEA==
+    - variable: API_TOKEN_SALT
+      value: cR/rallAeNL57sabXR2nYw==
+    - variable: ADMIN_JWT_SECRET
+      value: b87gkK+9htnw01phCAnQwg==
+    - variable: TRANSFER_TOKEN_SALT
+      value: 5xJnM1Ai10PipJmKm0PgHg==
 
+    # Database
+    - variable: DATABASE_CLIENT
+      value: sqlite
+    - variable: DATABASE_HOST
+      value: ""
+    - variable: DATABASE_PORT
+      value: ""
+    - variable: DATABASE_NAME
+      value: ""
+    - variable: DATABASE_USERNAME
+      value: ""
+    - variable: DATABASE_PASSWORD
+      value: ""
+    - variable: DATABASE_SSL
+      value: "false"
+    - variable: DATABASE_FILENAME
+      value: .tmp/data.db
+
+    # JWT Secret
+    - variable: JWT_SECRET
+      value: R4HaZi4Ill4H1
+
+    # Debugging
+    - variable: DEBUG
+      value: strapi:* npm run develop
