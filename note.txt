@@ -1,0 +1,16 @@
+
+=== Project Setup
+
+First, let's associate this project directory with a Firebase project.
+You can create multiple project aliases by running firebase use --add, 
+but for now we'll just set up a default project.
+
+i  Using project sayur-segar-9009c (Sayur Segar)
+
+=== Apphosting Setup
+i  Writing default settings to apphosting.yaml...
+i  apphosting.yaml is unchanged
++  Create a new App Hosting backend with `firebase apphosting:backends:create`
+
+i  Writing configuration info to firebase.json...
+i  Writing project information to .firebaserc...
