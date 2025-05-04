@@ -10,6 +10,7 @@
     ]
   },
   "hosting": {
+    "site": "sayur-segar-9009c",
     "appAssociation": "AUTO",
     "rewrites": [
       {
