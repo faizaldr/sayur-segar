@@ -4,7 +4,8 @@
   "info": {
     "singularName": "address",
     "pluralName": "addresses",
-    "displayName": "Addresses"
+    "displayName": "Addresses",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,8 +13,9 @@
   "attributes": {
     "user": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "addresses"
     },
     "name": {
       "type": "string",
@@ -35,6 +37,12 @@
     "longitude": {
       "type": "decimal",
       "required": true
+    },
+    "town": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
     }
   }
 }

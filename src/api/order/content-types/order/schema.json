@@ -26,8 +26,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::tag.tag",
-      "inversedBy": "orders",
-      "required": true
+      "inversedBy": "orders"
     },
     "totalPrice": {
       "type": "decimal",

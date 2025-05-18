@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
   collectionName: 'addresses';
   info: {
+    description: '';
     displayName: 'Addresses';
     pluralName: 'addresses';
     singularName: 'address';
@@ -394,12 +395,14 @@ export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
     longitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     phone: Schema.Attribute.String & Schema.Attribute.Required;
+    province: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    town: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     user: Schema.Attribute.Relation<
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -509,6 +512,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
         maxLength: 20;
         minLength: 3;
       }>;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -578,8 +582,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'> &
-      Schema.Attribute.Required;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     totalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -700,7 +703,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -730,6 +733,8 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    originalPrice: Schema.Attribute.Decimal;
+    price: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
     tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -863,41 +868,6 @@ export interface ApiShippingShipping extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-  };
-}
-
-export interface ApiSummarySummary extends Struct.CollectionTypeSchema {
-  collectionName: 'summaries';
-  info: {
-    description: '';
-    displayName: 'Summary';
-    pluralName: 'summaries';
-    singularName: 'summary';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::summary.summary'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    summary: Schema.Attribute.RichText;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    videoId: Schema.Attribute.String;
   };
 }
 
@@ -1414,6 +1384,7 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    addresses: Schema.Attribute.Relation<'oneToMany', 'api::address.address'>;
     avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     birthDate: Schema.Attribute.Date;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1439,7 +1410,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    products: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     profilePicture: Schema.Attribute.Media<
       'images' | 'videos' | 'audios' | 'files',
       true
@@ -1451,8 +1422,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    summaries: Schema.Attribute.Relation<'oneToMany', 'api::summary.summary'>;
-    tags: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    tags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1496,7 +1466,6 @@ declare module '@strapi/strapi' {
       'api::return.return': ApiReturnReturn;
       'api::review.review': ApiReviewReview;
       'api::shipping.shipping': ApiShippingShipping;
-      'api::summary.summary': ApiSummarySummary;
       'api::tag.tag': ApiTagTag;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

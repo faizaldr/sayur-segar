@@ -12,7 +12,7 @@
 
 module.exports = (config, { strapi }) => {
   return async (ctx, next) => {
-    const entryId = ctx.params.id; // ID dari entri yang diminta (jika ada)
+    const entryId = ctx.params.id; // ID dari entri yang diminta (jika ada) // misal update atau delete
     const user = ctx.state.user; // User yang sedang login
     const userId = user?.id; // ID dari user yang sedang login
     const userRole = user?.role?.name; // Role user yang sedang login
@@ -32,40 +32,41 @@ module.exports = (config, { strapi }) => {
     }
 
     const appUid = generateUID(apiName); // UID dari API yang sedang diakses
-    strapi.log.info(appUid);
+    // strapi.log.info("ctx", ctx);
 
     if (userRole === "Super Admin" || ctx.state.isAdmin) {
       return await next(); // Lewati middleware untuk Super Admin atau Admin Panel
     }
 
     if (entryId) {
-      // Jika parameter ID tersedia, muat entri dari database
-      const entry = await strapi.entityService.findOne(appUid, entryId, {
+      // Jika parameter ID tersedia, muat entri dari database menggunakan documentId
+      const entry = await strapi.entityService.findMany(appUid, {
+        filters: { documentId: entryId }, // Gunakan documentId sebagai filter
         populate: "user", // Pastikan relasi user dipopulasikan
       });
-      strapi.log.info(entry);
+
+      // Karena findMany mengembalikan array, ambil entri pertama (jika ada)
+      const entryData = entry[0];
+
+      // strapi.log.info("entry", entryData);
 
       // Periksa akses berdasarkan role
       if (userRole === "Saler") {
         // Penjual hanya dapat mengakses data miliknya sendiri
-        if (!entry || entry.user?.id !== userId) {
-          return ctx.unauthorized(`You can't access this entry`);
+        if (!entryData || entryData.user?.id !== userId) {
+          return ctx.unauthorized(`You can't access this entry, not owner`);
         }
       } else if (userRole === "SalerMember") {
         // PenjualAnggota hanya dapat READ data milik userParent
-        if (ctx.request.method !== "GET" || !entry || entry.user?.id !== user.userParent?.id) {
-          return ctx.unauthorized(`You can't access this entry`);
+        if (ctx.request.method !== "GET" || !entryData || entryData.user?.id !== user.userParent?.id) {
+          return ctx.unauthorized(`You can't access this entry, not member owner`);
         }
       } else /*if (userRole === "Buyer")*/ {
         // Pembeli hanya dapat READ semua data
         if (ctx.request.method !== "GET") {
-          return ctx.unauthorized(`You can't perform this action`);
+          return ctx.unauthorized(`You can't perform this action, not buyer`);
         }
-      } 
-      // else {
-      //   // Role tidak dikenal
-      //   return ctx.forbidden("Your role is not authorized to access this resource");
-      // }
+      }
     } else {
       // Jika parameter ID tidak tersedia, tambahkan filter untuk membatasi data berdasarkan role
       if (userRole === "Saler") {
@@ -88,7 +89,7 @@ module.exports = (config, { strapi }) => {
         // return ctx.forbidden("Your role is not authorized to access this resource");
       }
 
-      strapi.log.info(ctx.query);
+      // strapi.log.info(ctx.query);
     }
 
     // Lanjutkan ke middleware berikutnya

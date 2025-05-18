@@ -53,7 +53,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "products"
+      "inversedBy": "tags"
     },
     "orders": {
       "type": "relation",

@@ -105,22 +105,22 @@
     "descriptionProfile": {
       "type": "text"
     },
-    "tags": {
+    "addresses": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::product.product",
+      "target": "api::address.address",
       "mappedBy": "user"
     },
-    "products": {
+    "tags": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag",
       "mappedBy": "user"
     },
-    "summaries": {
+    "products": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::summary.summary",
+      "target": "api::product.product",
       "mappedBy": "user"
     }
   }

@@ -3,7 +3,15 @@ export default {
     const ctx = strapi.requestContext.get(); // Mendapatkan konteks request
 
     console.log("ctx", ctx?.state?.user);
-    if (ctx?.state?.user?.roles[0].name === 'Super Admin') {
+
+    // Validasi apakah user memiliki roles
+    const isSuperAdmin =
+      ctx?.state?.user?.roles &&
+      Array.isArray(ctx.state.user.roles) &&
+      ctx.state.user.roles.length > 0 &&
+      ctx.state.user.roles[0].name === 'Super Admin';
+
+    if (isSuperAdmin) {
       // Jika user adalah Super Admin, lewati logika ini
       strapi.log.info('Access by Super Admin, skipping beforeCreate logic.');
       return;

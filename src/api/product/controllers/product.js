@@ -6,20 +6,44 @@
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::product.product', ({ strapi }) => ({
-  async find(ctx) {
-    // Fetch data with populated tags
-    const products = await strapi.entityService.findMany('api::product.product', {
-      populate: {
-        images: true,
-        tags: {
-          sort: ['price:asc'], // Sort tags by price
-        },
-      },
-      filters: ctx.query.filters || {}, // Apply filters if provided
-      sort: ctx.query.sort || ['name:asc'], // Default sorting by name
-    });
+module.exports = createCoreController('api::product.product',
+  ({ strapi }) => ({
+    async find(ctx) {
+      const allowed = ['start', 'limit'];
 
-    return products;
-  },
-}));
+      // Ambil hanya parameter yang diizinkan dari ctx.query
+      const safeQuery = Object.fromEntries(
+        Object.entries(ctx.query).filter(([key]) => allowed.includes(key))
+      );
+
+      const products = await strapi.entityService.findMany('api::product.product', {
+        ...safeQuery,
+        populate: {
+          category: true,
+          images: true,
+          user: {
+            fields: ['username', 'documentId'],
+            populate: {
+              addresses: true,
+            },
+          },
+          tags: {
+            sort: ['price:asc'],
+          },
+        },
+        filters: ctx.query.filters || {},
+        sort: ctx.query.sort || ['name:asc'],
+      });
+      // Hitung jumlah tags untuk setiap product
+      const productCount = await strapi.entityService.count('api::product.product', {
+        filters: ctx.query.filters || {},
+      });
+
+      return {
+        data: products,
+        meta: { productCount: productCount },
+      };
+    }
+
+  })
+);
