@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "schedule",
+  "info": {
+    "singularName": "schedule",
+    "pluralName": "schedules",
+    "displayName": "Schedule",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "time": {
+      "type": "time",
+      "default": "05:30:00.000"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "schedule"
+    }
+  }
+}

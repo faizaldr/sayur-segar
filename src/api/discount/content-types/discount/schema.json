@@ -4,29 +4,56 @@
   "info": {
     "singularName": "discount",
     "pluralName": "discounts",
-    "displayName": "Discount"
+    "displayName": "Discount",
+    "description": "Diskon untuk produk atau ongkir"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false,
+    "timestamps": true
   },
   "attributes": {
-    "code": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "percentage": {
+    "type": {
+      "type": "enumeration",
+      "enum": ["percentage", "fixed"],
+      "required": true
+    },
+    "amount": {
       "type": "decimal",
       "required": true
     },
-    "validUntil": {
-      "type": "timestamp",
+    "target": {
+      "type": "enumeration",
+      "enum": ["product", "shipping"],
       "required": true
     },
-    "createdAt": {
-      "type": "timestamp"
+    "active": {
+      "type": "boolean",
+      "default": true
     },
-    "updatedAt": {
-      "type": "timestamp"
+    "start_date": {
+      "type": "datetime"
+    },
+    "end_date": {
+      "type": "datetime"
+    },
+    "min_purchase": {
+      "type": "decimal"
+    },
+    "coupon_code": {
+      "type": "string",
+      "unique": true
+    },
+    "usage_limit": {
+      "type": "integer"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product"
     }
   }
 }

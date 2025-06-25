@@ -4,12 +4,19 @@
   "info": {
     "singularName": "cart",
     "pluralName": "carts",
-    "displayName": "Cart"
+    "displayName": "Cart",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
+    "createdAt": {
+      "type": "timestamp"
+    },
+    "updatedAt": {
+      "type": "timestamp"
+    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
@@ -26,11 +33,9 @@
       "type": "decimal",
       "required": true
     },
-    "createdAt": {
-      "type": "timestamp"
-    },
-    "updatedAt": {
-      "type": "timestamp"
+    "quantity": {
+      "type": "integer",
+      "required": true
     }
   }
 }

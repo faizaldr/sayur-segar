@@ -52,6 +52,21 @@
           "localized": true
         }
       }
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "schedule": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::schedule.schedule",
+      "inversedBy": "orders"
+    },
+    "address": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::address.address",
+      "inversedBy": "orders"
     }
   }
 }

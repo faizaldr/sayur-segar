@@ -378,7 +378,7 @@ export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
     singularName: 'address';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     address: Schema.Attribute.Text & Schema.Attribute.Required;
@@ -393,7 +393,9 @@ export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     longitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    mainAddress: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     phone: Schema.Attribute.String & Schema.Attribute.Required;
     province: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
@@ -439,6 +441,7 @@ export interface ApiBannerBanner extends Struct.CollectionTypeSchema {
 export interface ApiCartCart extends Struct.CollectionTypeSchema {
   collectionName: 'carts';
   info: {
+    description: '';
     displayName: 'Cart';
     pluralName: 'carts';
     singularName: 'cart';
@@ -454,6 +457,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::cart.cart'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'> &
       Schema.Attribute.Required;
     totalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
@@ -523,30 +527,42 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
 export interface ApiDiscountDiscount extends Struct.CollectionTypeSchema {
   collectionName: 'discounts';
   info: {
+    description: 'Diskon untuk produk atau ongkir';
     displayName: 'Discount';
     pluralName: 'discounts';
     singularName: 'discount';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+    timestamps: true;
   };
   attributes: {
-    code: Schema.Attribute.String & Schema.Attribute.Required;
+    active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    amount: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    coupon_code: Schema.Attribute.String & Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    end_date: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::discount.discount'
     > &
       Schema.Attribute.Private;
-    percentage: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    min_purchase: Schema.Attribute.Decimal;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    start_date: Schema.Attribute.DateTime;
+    target: Schema.Attribute.Enumeration<['product', 'shipping']> &
+      Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['percentage', 'fixed']> &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    validUntil: Schema.Attribute.Timestamp & Schema.Attribute.Required;
+    usage_limit: Schema.Attribute.Integer;
   };
 }
 
@@ -567,6 +583,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    address: Schema.Attribute.Relation<'manyToOne', 'api::address.address'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -582,6 +599,8 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer;
+    schedule: Schema.Attribute.Relation<'manyToOne', 'api::schedule.schedule'>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     totalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -825,6 +844,38 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Required;
+  };
+}
+
+export interface ApiScheduleSchedule extends Struct.CollectionTypeSchema {
+  collectionName: 'schedule';
+  info: {
+    description: '';
+    displayName: 'Schedule';
+    pluralName: 'schedules';
+    singularName: 'schedule';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    available: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::schedule.schedule'
+    > &
+      Schema.Attribute.Private;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
+    publishedAt: Schema.Attribute.DateTime;
+    time: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'05:30:00.000'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1465,6 +1516,7 @@ declare module '@strapi/strapi' {
       'api::product.product': ApiProductProduct;
       'api::return.return': ApiReturnReturn;
       'api::review.review': ApiReviewReview;
+      'api::schedule.schedule': ApiScheduleSchedule;
       'api::shipping.shipping': ApiShippingShipping;
       'api::tag.tag': ApiTagTag;
       'plugin::content-releases.release': PluginContentReleasesRelease;

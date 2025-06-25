@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "user": {
@@ -43,6 +43,16 @@
     },
     "province": {
       "type": "string"
+    },
+    "mainAddress": {
+      "type": "boolean",
+      "default": true
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "address"
     }
   }
 }
