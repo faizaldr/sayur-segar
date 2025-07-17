@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * schedule
+ * schedule service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;

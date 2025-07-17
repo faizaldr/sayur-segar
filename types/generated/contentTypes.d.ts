@@ -34,6 +34,10 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }> &
       Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     expiresAt: Schema.Attribute.DateTime;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
@@ -587,6 +591,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     discount: Schema.Attribute.Relation<'oneToOne', 'api::discount.discount'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
@@ -609,8 +614,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     user: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
-    > &
-      Schema.Attribute.Required;
+    >;
   };
 }
 
@@ -848,9 +852,8 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
 }
 
 export interface ApiScheduleSchedule extends Struct.CollectionTypeSchema {
-  collectionName: 'schedule';
+  collectionName: 'schedules';
   info: {
-    description: '';
     displayName: 'Schedule';
     pluralName: 'schedules';
     singularName: 'schedule';
@@ -872,7 +875,8 @@ export interface ApiScheduleSchedule extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     publishedAt: Schema.Attribute.DateTime;
-    time: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'05:30:00.000'>;
+    time: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'14:30:00.000'>;
+    timeEnd: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'15:30:00.000'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

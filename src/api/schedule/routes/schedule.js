@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * courier-available router
+ * schedule router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;

@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * schedule
+ * schedule controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;

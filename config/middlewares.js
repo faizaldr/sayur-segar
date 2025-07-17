@@ -9,7 +9,7 @@ module.exports = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-  'global::logger',
+  // 'global::logger',
   // {
   //   name: 'global::checkItemOwnership',
   //   // config: {
