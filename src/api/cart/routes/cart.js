@@ -21,10 +21,10 @@ module.exports = createCoreRouter('api::cart.cart', {
             ],
         },
         update: {
-            middlewares: ["global::is-owner"],
+            middlewares: ["global::is-owner-buyer"],
         },
         delete: {
-            middlewares: ["global::is-owner"],
+            middlewares: ["global::is-owner-buyer"],
         },
         // create: {
         //     // Nonaktifkan middleware untuk sementara

@@ -462,8 +462,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer & Schema.Attribute.Required;
-    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'> &
-      Schema.Attribute.Required;
+    tag: Schema.Attribute.Relation<'oneToOne', 'api::tag.tag'>;
     totalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -471,8 +470,7 @@ export interface ApiCartCart extends Struct.CollectionTypeSchema {
     user: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
-    > &
-      Schema.Attribute.Required;
+    >;
   };
 }
 
@@ -570,6 +568,42 @@ export interface ApiDiscountDiscount extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOrderDetailOrderDetail extends Struct.CollectionTypeSchema {
+  collectionName: 'order_details';
+  info: {
+    description: '';
+    displayName: 'OrderDetail';
+    pluralName: 'order-details';
+    singularName: 'order-detail';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-detail.order-detail'
+    >;
+    order: Schema.Attribute.Relation<'manyToOne', 'api::order.order'>;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer & Schema.Attribute.Required;
+    schedule: Schema.Attribute.Relation<'manyToOne', 'api::schedule.schedule'>;
+    tag: Schema.Attribute.Relation<'manyToOne', 'api::tag.tag'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   collectionName: 'orders';
   info: {
@@ -591,10 +625,14 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
     discount: Schema.Attribute.Relation<'oneToOne', 'api::discount.discount'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
+    orderDetails: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-detail.order-detail'
+    >;
     progress: Schema.Attribute.Enumeration<
       ['process', 'accepted', 'completed', 'cancelled', 'returning']
     > &
@@ -602,11 +640,9 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
         i18n: {
           localized: true;
         };
-      }>;
+      }> &
+      Schema.Attribute.DefaultTo<'process'>;
     publishedAt: Schema.Attribute.DateTime;
-    quantity: Schema.Attribute.Integer;
-    schedule: Schema.Attribute.Relation<'manyToOne', 'api::schedule.schedule'>;
-    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     totalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -873,7 +909,10 @@ export interface ApiScheduleSchedule extends Struct.CollectionTypeSchema {
       'api::schedule.schedule'
     > &
       Schema.Attribute.Private;
-    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
+    orders: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-detail.order-detail'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     time: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'14:30:00.000'>;
     timeEnd: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'15:30:00.000'>;
@@ -943,12 +982,16 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    cart: Schema.Attribute.Relation<'oneToOne', 'api::cart.cart'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
-    orders: Schema.Attribute.Relation<'manyToMany', 'api::order.order'>;
+    order_details: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::order-detail.order-detail'
+    >;
     price: Schema.Attribute.Decimal &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -965,7 +1008,22 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    title: Schema.Attribute.String &
+    title: Schema.Attribute.Enumeration<
+      [
+        'Gr 100',
+        'Gr 200',
+        'Gr 250',
+        'Gr 300',
+        'Gr 400',
+        'Gr 500',
+        'Gr 600',
+        'Gr 700',
+        'Gr 750',
+        'Gr 800',
+        'Gr 900',
+        'Kg 1',
+      ]
+    > &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1440,6 +1498,7 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     addresses: Schema.Attribute.Relation<'oneToMany', 'api::address.address'>;
+    admin_user: Schema.Attribute.Relation<'oneToOne', 'admin::user'>;
     avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     birthDate: Schema.Attribute.Date;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1513,6 +1572,7 @@ declare module '@strapi/strapi' {
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
       'api::discount.discount': ApiDiscountDiscount;
+      'api::order-detail.order-detail': ApiOrderDetailOrderDetail;
       'api::order.order': ApiOrderOrder;
       'api::payment.payment': ApiPaymentPayment;
       'api::popular-category.popular-category': ApiPopularCategoryPopularCategory;

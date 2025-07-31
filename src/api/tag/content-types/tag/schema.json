@@ -17,31 +17,45 @@
   },
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true,
+      "type": "enumeration",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true,
+      "enum": [
+        "Gr 100",
+        "Gr 200",
+        "Gr 250",
+        "Gr 300",
+        "Gr 400",
+        "Gr 500",
+        "Gr 600",
+        "Gr 700",
+        "Gr 750",
+        "Gr 800",
+        "Gr 900",
+        "Kg 1"
+      ]
     },
     "price": {
       "type": "decimal",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "stok": {
       "type": "integer",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "product": {
       "type": "relation",
@@ -55,11 +69,17 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "tags"
     },
-    "orders": {
+    "order_details": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::order.order",
-      "mappedBy": "tags"
+      "relation": "oneToMany",
+      "target": "api::order-detail.order-detail",
+      "mappedBy": "tag"
+    },
+    "cart": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cart.cart",
+      "mappedBy": "tag"
     }
   }
 }

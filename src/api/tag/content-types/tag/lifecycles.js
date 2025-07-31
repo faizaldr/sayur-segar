@@ -26,13 +26,21 @@ export default {
     } else {
       strapi.log.error('User not found in ctx.state');
     }
+
+    // Tambahkan 800 ke field price saat create
+    if (typeof event.params.data.price === 'number') {
+      event.params.data.price += 800;
+    }
   },
 
+  beforeUpdate(event) {
+    // Tambahkan 800 ke field price saat update
+    if (typeof event.params.data.price === 'number') {
+      event.params.data.price += 800;
+    }
+  },
+  
   // afterCreate(event) {
-  //   console.log("hello");
-  // },
-
-  // beforeUpdate(event) {
   //   console.log("hello");
   // },
 

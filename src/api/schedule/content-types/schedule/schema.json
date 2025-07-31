@@ -14,7 +14,7 @@
     "orders": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::order.order",
+      "target": "api::order-detail.order-detail",
       "mappedBy": "schedule"
     },
     "available": {

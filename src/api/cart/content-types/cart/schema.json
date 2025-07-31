@@ -10,24 +10,18 @@
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
-    "createdAt": {
-      "type": "timestamp"
-    },
-    "updatedAt": {
-      "type": "timestamp"
-    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "required": true
+      "target": "plugin::users-permissions.user"
     },
-    "tags": {
+    "tag": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "oneToOne",
       "target": "api::tag.tag",
-      "required": true
+      "inversedBy": "cart"
     },
     "totalPrice": {
       "type": "decimal",

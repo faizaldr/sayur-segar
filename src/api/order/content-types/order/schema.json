@@ -21,20 +21,9 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "tags": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tag.tag",
-      "inversedBy": "orders"
-    },
     "totalPrice": {
       "type": "decimal",
       "required": true
-    },
-    "discount": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::discount.discount"
     },
     "progress": {
       "type": "enumeration",
@@ -44,6 +33,7 @@
         }
       },
       "required": false,
+      "default": "process",
       "enum": [
         "process",
         "accepted",
@@ -52,8 +42,10 @@
         "returning"
       ]
     },
-    "quantity": {
-      "type": "integer"
+    "discount": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::discount.discount"
     },
     "address": {
       "type": "relation",
@@ -63,13 +55,13 @@
     },
     "description": {
       "type": "text",
-      "required": true
+      "required": false
     },
-    "schedule": {
+    "orderDetails": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::schedule.schedule",
-      "inversedBy": "orders"
+      "relation": "oneToMany",
+      "target": "api::order-detail.order-detail",
+      "mappedBy": "order"
     }
   }
 }

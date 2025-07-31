@@ -1,8 +1,10 @@
-export default {
-  beforeCreate(event) {
-    const ctx = strapi.requestContext.get(); // Mendapatkan konteks request
+import { errors } from '@strapi/utils';
+const { ValidationError } = errors;
 
-    // Cek jika user adalah Super Admin
+export default {
+  async beforeCreate(event) {
+    const ctx = strapi.requestContext.get();
+
     const isSuperAdmin =
       ctx?.state?.user?.roles &&
       Array.isArray(ctx.state.user.roles) &&
@@ -11,29 +13,33 @@ export default {
 
     if (isSuperAdmin) {
       strapi.log.info('Super Admin detected, skipping user assignment.');
-      return; // Lewati penambahan user
+      return;
     }
 
     if (ctx?.state?.user) {
       const loggedInUserId = ctx.state.user.id;
-      // strapi.log.info('Logged-in User ID:', loggedInUserId);
-
-      // Tambahkan user yang sedang login ke data yang akan dibuat
       event.params.data.user = loggedInUserId;
+
+      const tagDocumentId = event.params.data.tag.set[0]?.id;
+
+      if (!tagDocumentId) {
+        throw new ValidationError('Tag ID tidak ditemukan dalam data permintaan');
+      }
+
+      const existingCart = await strapi.entityService.findMany('api::cart.cart', {
+        filters: {
+          user: loggedInUserId,
+          tag: { id: { $eq: tagDocumentId } },
+        },
+      });
+
+      if (existingCart.length > 0) {
+        const error = new ValidationError('Produk sudah ada di keranjang belanjamu, ayo cek keranjangmu');
+        error.status = 409; // Kode status conflict
+        throw error;
+      }
     } else {
       strapi.log.error('User not found in ctx.state');
     }
-  },
-  // ...existing code...
+  }
 };
-  // afterCreate(event) {
-  //   console.log("hello");
-  // },
-
-  // beforeUpdate(event) {
-  //   console.log("hello");
-  // },
-
-  // afterUpdate(event) {
-  //   console.log("hello");
-  // },
