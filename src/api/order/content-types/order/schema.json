@@ -36,10 +36,9 @@
       "default": "process",
       "enum": [
         "process",
+        "shipped",
         "accepted",
-        "completed",
-        "cancelled",
-        "returning"
+        "cancelled"
       ]
     },
     "discount": {
@@ -62,6 +61,17 @@
       "relation": "oneToMany",
       "target": "api::order-detail.order-detail",
       "mappedBy": "order"
+    },
+    "saler": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "schedule": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::schedule.schedule",
+      "inversedBy": "orders"
     }
   }
 }

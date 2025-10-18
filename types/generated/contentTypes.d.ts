@@ -389,6 +389,7 @@ export interface ApiAddressAddress extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    deletedAt: Schema.Attribute.DateTime;
     latitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -596,7 +597,6 @@ export interface ApiOrderDetailOrderDetail extends Struct.CollectionTypeSchema {
     order: Schema.Attribute.Relation<'manyToOne', 'api::order.order'>;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer & Schema.Attribute.Required;
-    schedule: Schema.Attribute.Relation<'manyToOne', 'api::schedule.schedule'>;
     tag: Schema.Attribute.Relation<'manyToOne', 'api::tag.tag'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -634,7 +634,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       'api::order-detail.order-detail'
     >;
     progress: Schema.Attribute.Enumeration<
-      ['process', 'accepted', 'completed', 'cancelled', 'returning']
+      ['process', 'shipped', 'accepted', 'cancelled']
     > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -643,6 +643,11 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       }> &
       Schema.Attribute.DefaultTo<'process'>;
     publishedAt: Schema.Attribute.DateTime;
+    saler: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    schedule: Schema.Attribute.Relation<'manyToOne', 'api::schedule.schedule'>;
     totalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -909,10 +914,7 @@ export interface ApiScheduleSchedule extends Struct.CollectionTypeSchema {
       'api::schedule.schedule'
     > &
       Schema.Attribute.Private;
-    orders: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::order-detail.order-detail'
-    >;
+    orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     publishedAt: Schema.Attribute.DateTime;
     time: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'14:30:00.000'>;
     timeEnd: Schema.Attribute.Time & Schema.Attribute.DefaultTo<'15:30:00.000'>;

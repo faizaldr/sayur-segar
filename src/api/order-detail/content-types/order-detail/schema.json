@@ -26,12 +26,6 @@
       "type": "integer",
       "required": true
     },
-    "schedule": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::schedule.schedule",
-      "inversedBy": "orders"
-    },
     "tag": {
       "type": "relation",
       "relation": "manyToOne",

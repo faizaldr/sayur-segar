@@ -53,6 +53,10 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "address"
+    },
+    "deletedAt": {
+      "type": "datetime",
+      "allowNull": true
     }
   }
 }
