@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discounts",
+  "info": {
+    "singularName": "discount",
+    "pluralName": "discounts",
+    "displayName": "Discount",
+    "description": "Diskon untuk produk atau ongkir"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["percentage", "fixed"],
+      "required": true
+    },
+    "amount": {
+      "type": "decimal",
+      "required": true
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["product", "shipping"],
+      "required": true
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "start_date": {
+      "type": "datetime"
+    },
+    "end_date": {
+      "type": "datetime"
+    },
+    "min_purchase": {
+      "type": "decimal"
+    },
+    "coupon_code": {
+      "type": "string",
+      "unique": true
+    },
+    "usage_limit": {
+      "type": "integer"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product"
+    }
+  }
+}
