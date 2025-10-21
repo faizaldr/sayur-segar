@@ -20,6 +20,8 @@ export default {
       const loggedInUserId = ctx.state.user.id;
       event.params.data.user = loggedInUserId;
 
+      console.log(event.params.data);
+
       const tagDocumentId = event.params.data.tag.set[0]?.id;
 
       if (!tagDocumentId) {
