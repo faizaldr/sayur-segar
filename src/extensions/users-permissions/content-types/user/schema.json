@@ -128,6 +128,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "admin::user"
+    },
+    "carts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart.cart",
+      "mappedBy": "user"
     }
   }
 }

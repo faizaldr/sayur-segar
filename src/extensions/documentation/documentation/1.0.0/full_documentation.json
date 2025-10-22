@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-10-13T09:13:16.694Z"
+    "x-generation-date": "2025-10-22T02:01:25.824Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -11881,6 +11881,20 @@
                   }
                 }
               },
+              "carts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -15238,6 +15252,20 @@
                   }
                 }
               },
+              "carts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -17700,6 +17728,20 @@
                         }
                       }
                     },
+                    "carts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
                     "createdAt": {
                       "type": "string",
                       "format": "date-time"
@@ -20153,6 +20195,20 @@
                         },
                         "documentId": {
                           "type": "string"
+                        }
+                      }
+                    },
+                    "carts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
                         }
                       }
                     },
@@ -22666,6 +22722,20 @@
                   }
                 }
               },
+              "carts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -24795,6 +24865,20 @@
                       },
                       "documentId": {
                         "type": "string"
+                      }
+                    }
+                  },
+                  "carts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
                       }
                     }
                   },
@@ -27185,6 +27269,20 @@
                       },
                       "documentId": {
                         "type": "string"
+                      }
+                    }
+                  },
+                  "carts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
                       }
                     }
                   },
@@ -29819,6 +29917,20 @@
                             }
                           }
                         },
+                        "carts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -32286,6 +32398,20 @@
                       },
                       "documentId": {
                         "type": "string"
+                      }
+                    }
+                  },
+                  "carts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
                       }
                     }
                   },
@@ -34850,6 +34976,20 @@
                             }
                           }
                         },
+                        "carts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -37083,6 +37223,20 @@
                       },
                       "documentId": {
                         "type": "string"
+                      }
+                    }
+                  },
+                  "carts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
                       }
                     }
                   },
@@ -40151,6 +40305,20 @@
                   }
                 }
               },
+              "carts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -42588,6 +42756,20 @@
                         }
                       }
                     },
+                    "carts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
                     "createdAt": {
                       "type": "string",
                       "format": "date-time"
@@ -45002,6 +45184,20 @@
                       },
                       "documentId": {
                         "type": "string"
+                      }
+                    }
+                  },
+                  "carts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
                       }
                     }
                   },
@@ -47909,6 +48105,20 @@
                       },
                       "documentId": {
                         "type": "string"
+                      }
+                    }
+                  },
+                  "carts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        }
                       }
                     }
                   },
