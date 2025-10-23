@@ -1,5 +1,5 @@
 {
-  "name": "my-strapi-project",
+  "name": "sayur-segar",
   "version": "0.1.0",
   "private": true,
   "description": "A Strapi application",
@@ -9,32 +9,28 @@
     "deploy": "strapi deploy",
     "dev": "strapi develop",
     "develop": "strapi develop",
-    "seed:example": "node ./scripts/seed.js",
     "start": "strapi start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.18.1",
-    "@strapi/plugin-documentation": "^5.11.3",
-    "@strapi/plugin-users-permissions": "5.18.1",
-    "@strapi/strapi": "5.18.1",
+    "@strapi/plugin-cloud": "5.29.0",
+    "@strapi/plugin-users-permissions": "5.29.0",
+    "@strapi/strapi": "5.29.0",
     "better-sqlite3": "11.3.0",
-    "dotenv": "^16.5.0",
-    "firebase": "^11.7.1",
-    "fs-extra": "^10.0.0",
-    "mime-types": "^2.1.27",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0"
   },
+  "devDependencies": {},
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "b856dfb7-951c-48ca-8caf-13a9dc310f80"
+    "uuid": "85f0dff5-1031-4263-a070-26bcf45004a8",
+    "installId": "1ef51afb0a4504acc3171e16ead726d1df3d256d4458bfcc54ea682a910b0d53"
   }
 }
