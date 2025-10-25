@@ -32,7 +32,7 @@
           "localized": true
         }
       },
-      "required": false,
+      "required": true,
       "default": "process",
       "enum": [
         "process",
@@ -54,7 +54,8 @@
     },
     "description": {
       "type": "text",
-      "required": false
+      "default": "Tidak ada kendala",
+      "required": true
     },
     "orderDetails": {
       "type": "relation",

@@ -40,7 +40,7 @@
     },
     "description": {
       "type": "text",
-      "default": "no description",
+      "default": "Belum ada deskripsi",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -51,13 +51,15 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::category.category",
-      "inversedBy": "products"
+      "inversedBy": "products",
+      "required": true
     },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "products"
+      "inversedBy": "products",
+      "required": true
     },
     "tags": {
       "type": "relation",
@@ -66,10 +68,14 @@
       "mappedBy": "product"
     },
     "price": {
-      "type": "decimal"
+      "type": "decimal",
+      "default": 0.0,
+      "required": true
     },
     "originalPrice": {
-      "type": "decimal"
+      "type": "decimal",
+      "default": 0.0,
+      "required": true
     }
   }
 }

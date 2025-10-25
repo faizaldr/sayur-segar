@@ -37,23 +37,26 @@ module.exports = createCoreController('api::cart.cart', ({ strapi }) => ({
             return ctx.throw(500, err);
         }
     },
-    async find(ctx) {
-        // Ambil user yang login
-        const userId = ctx.state.user.id;
+   async find(ctx) {
+    const user = ctx.state.user;
 
-        // Tambahkan filter user ke query
-        ctx.query = {
-            ...ctx.query,
-            filters: {
-                ...ctx.query.filters,
-                user: { id: userId },
-            },
-        };
+    if (!user) {
+      return ctx.unauthorized('Anda harus login untuk melihat pesanan Anda');
+    }
 
-        // Panggil find bawaan Strapi
-        const response = await super.find(ctx);
+    // Pastikan filters tetap ada tanpa menimpa populate/pagination dsb
+    const userFilter = { user: { id: user.id } };
 
-        // response tetap dalam format { data, meta }
-        return response;
-    },
+    // Gabungkan filter user ke filter existing dari query
+    ctx.query.filters = {
+      ...ctx.query.filters,
+      ...userFilter,
+    };
+
+    // Panggil fungsi find bawaan Strapi
+    const response = await super.find(ctx);
+
+    // Kembalikan format standar bawaan Strapi { data, meta }
+    return response;
+  },
 }));

@@ -61,13 +61,15 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::product.product",
-      "inversedBy": "tags"
+      "inversedBy": "tags",
+      "required": true
     },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "tags"
+      "inversedBy": "tags",
+      "required": true
     },
     "order_details": {
       "type": "relation",

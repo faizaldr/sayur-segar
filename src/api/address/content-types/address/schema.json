@@ -15,7 +15,8 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "addresses"
+      "inversedBy": "addresses",
+      "required": true
     },
     "name": {
       "type": "string",
@@ -39,14 +40,17 @@
       "required": true
     },
     "town": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "province": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "mainAddress": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "required": true
     },
     "orders": {
       "type": "relation",

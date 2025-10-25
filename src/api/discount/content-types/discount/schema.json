@@ -32,23 +32,29 @@
     },
     "active": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "required": true
     },
     "start_date": {
-      "type": "datetime"
+      "type": "datetime",
+      "required": true
     },
     "end_date": {
-      "type": "datetime"
+      "type": "datetime",
+      "required": true
     },
     "min_purchase": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
     },
     "coupon_code": {
       "type": "string",
-      "unique": true
+      "unique": true,
+      "required": true
     },
     "usage_limit": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "products": {
       "type": "relation",

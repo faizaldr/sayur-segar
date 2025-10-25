@@ -30,7 +30,8 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::tag.tag",
-      "inversedBy": "order_details"
+      "inversedBy": "order_details",
+      "required": true
     }
   }
 }

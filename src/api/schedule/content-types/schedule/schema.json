@@ -13,18 +13,22 @@
   "attributes": {
     "available": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "required": true
     },
     "date": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "time": {
       "type": "time",
-      "default": "14:30:00.000"
+      "default": "14:30:00.000",
+      "required": true
     },
     "timeEnd": {
       "type": "time",
-      "default": "15:30:00.000"
+      "default": "15:30:00.000",
+      "required": true
     },
     "orders": {
       "type": "relation",

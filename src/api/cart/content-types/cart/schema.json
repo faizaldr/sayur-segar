@@ -22,13 +22,15 @@
     "user": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "plugin::users-permissions.user",
+      "required": true
     },
     "tag": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::tag.tag",
-      "inversedBy": "cart"
+      "inversedBy": "cart",
+      "required": true
     },
     "totalPrice": {
       "type": "decimal",
