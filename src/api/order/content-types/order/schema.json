@@ -63,7 +63,7 @@
       "target": "api::order-detail.order-detail",
       "mappedBy": "order"
     },
-    "saler": {
+    "Seller": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"

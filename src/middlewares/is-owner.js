@@ -51,12 +51,12 @@ module.exports = (config, { strapi }) => {
       // strapi.log.info("entry", entryData);
 
       // Periksa akses berdasarkan role
-      if (userRole === "Saler") {
+      if (userRole === "Seller") {
         // Penjual hanya dapat mengakses data miliknya sendiri
         if (!entryData || entryData.user?.id !== userId) {
           return ctx.unauthorized(`You can't access this entry, not owner`);
         }
-      } else if (userRole === "SalerMember") {
+      } else if (userRole === "SellerMember") {
         // PenjualAnggota hanya dapat READ data milik userParent
         if (ctx.request.method !== "GET" || !entryData || entryData.user?.id !== user.userParent?.id) {
           return ctx.unauthorized(`You can't access this entry, not member owner`);
@@ -69,13 +69,13 @@ module.exports = (config, { strapi }) => {
       }
     } else {
       // Jika parameter ID tidak tersedia, tambahkan filter untuk membatasi data berdasarkan role
-      if (userRole === "Saler") {
+      if (userRole === "Seller") {
         // Penjual hanya dapat melihat data miliknya sendiri
         ctx.query = {
           ...ctx.query,
           filters: { ...ctx.query.filters, user: userId },
         };
-      } else if (userRole === "SalerMember") {
+      } else if (userRole === "SellerMember") {
         // PenjualAnggota hanya dapat melihat data milik userParent
         ctx.query = {
           ...ctx.query,

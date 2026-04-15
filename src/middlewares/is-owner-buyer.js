@@ -46,12 +46,12 @@ module.exports = (config, { strapi }) => {
       strapi.log.info(entry);
 
       // // Periksa akses berdasarkan role
-      // if (userRole === "Saler") {
+      // if (userRole === "Seller") {
       //   // Penjual hanya dapat mengakses data miliknya sendiri
       //   if (!entry || entry.user?.id !== userId) {
       //     return ctx.unauthorized(`You can't access this entry`);
       //   }
-      // } else if (userRole === "SalerMember") {
+      // } else if (userRole === "SellerMember") {
       //   // PenjualAnggota hanya dapat READ data milik userParent
       //   if (ctx.request.method !== "GET" || !entry || entry.user?.id !== user.userParent?.id) {
       //     return ctx.unauthorized(`You can't access this entry`);

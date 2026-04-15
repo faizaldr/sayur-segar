@@ -721,11 +721,11 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       }> &
       Schema.Attribute.DefaultTo<'process'>;
     publishedAt: Schema.Attribute.DateTime;
-    saler: Schema.Attribute.Relation<
+    schedule: Schema.Attribute.Relation<'manyToOne', 'api::schedule.schedule'>;
+    Seller: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    schedule: Schema.Attribute.Relation<'manyToOne', 'api::schedule.schedule'>;
     totalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

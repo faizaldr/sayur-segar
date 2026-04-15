@@ -26,7 +26,7 @@ module.exports = () => {
             const roles = await strapi.entityService.findMany(
                 "plugin::users-permissions.role",
                 {
-                    filters: { type: "saler" }, // Ganti "saler" dengan tipe role yang diinginkan
+                    filters: { type: "Seller" }, // Ganti "Seller" dengan tipe role yang diinginkan
                 }
             );
 
@@ -34,7 +34,7 @@ module.exports = () => {
                 throw new Error("Role not found");
             }
 
-            const salerRole = roles[0];
+            const SellerRole = roles[0];
 
             // Perbarui user dengan role baru
             await strapi.entityService.update(
@@ -42,7 +42,7 @@ module.exports = () => {
                 user.id,
                 {
                     data: {
-                        role: salerRole.id,
+                        role: SellerRole.id,
                     },
                 }
             );

@@ -11626,7 +11626,7 @@
                               }
                             }
                           },
-                          "saler": {
+                          "Seller": {
                             "type": "object",
                             "properties": {
                               "id": {
@@ -14983,7 +14983,7 @@
                               }
                             }
                           },
-                          "saler": {
+                          "Seller": {
                             "type": "object",
                             "properties": {
                               "id": {
@@ -17445,7 +17445,7 @@
                                     }
                                   }
                                 },
-                                "saler": {
+                                "Seller": {
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -19901,7 +19901,7 @@
                                     }
                                   }
                                 },
-                                "saler": {
+                                "Seller": {
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -20424,7 +20424,7 @@
                   "example": "string or id"
                 }
               },
-              "saler": {
+              "Seller": {
                 "oneOf": [
                   {
                     "type": "integer"
@@ -22411,7 +22411,7 @@
                               }
                             }
                           },
-                          "saler": {
+                          "Seller": {
                             "type": "object",
                             "properties": {
                               "id": {
@@ -22771,7 +22771,7 @@
               }
             }
           },
-          "saler": {
+          "Seller": {
             "type": "object",
             "properties": {
               "id": {
@@ -25010,7 +25010,7 @@
                   }
                 }
               },
-              "saler": {
+              "Seller": {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -27400,7 +27400,7 @@
                   }
                 }
               },
-              "saler": {
+              "Seller": {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -29564,7 +29564,7 @@
                                         }
                                       }
                                     },
-                                    "saler": {
+                                    "Seller": {
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -32034,7 +32034,7 @@
                                   }
                                 }
                               },
-                              "saler": {
+                              "Seller": {
                                 "type": "object",
                                 "properties": {
                                   "id": {
@@ -34595,7 +34595,7 @@
                                         }
                                       }
                                     },
-                                    "saler": {
+                                    "Seller": {
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -37298,7 +37298,7 @@
                   }
                 }
               },
-              "saler": {
+              "Seller": {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -39896,7 +39896,7 @@
                               }
                             }
                           },
-                          "saler": {
+                          "Seller": {
                             "type": "object",
                             "properties": {
                               "id": {
@@ -42800,7 +42800,7 @@
                     }
                   }
                 },
-                "saler": {
+                "Seller": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -45217,7 +45217,7 @@
                   }
                 }
               },
-              "saler": {
+              "Seller": {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -47657,7 +47657,7 @@
                                   }
                                 }
                               },
-                              "saler": {
+                              "Seller": {
                                 "type": "object",
                                 "properties": {
                                   "id": {
